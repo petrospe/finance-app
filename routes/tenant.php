@@ -18,20 +18,23 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
+// Auth routes (login, register, etc.) - must be outside the middleware group
+require __DIR__.'/auth.php';
+
 Route::middleware([
     'web',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+    // Dashboard (Inertia/Vue)
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard', function () {
+            return inertia('Dashboard');
+        })->name('dashboard');
+    });
+
+    // Home route: redirect to login or dashboard
     Route::get('/', function () {
-        dd(\App\Models\User::all());
-        return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+        return redirect()->route('login');
     });
 });
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    });
-});
-
