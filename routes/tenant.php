@@ -18,9 +18,6 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
-// Auth routes (login, register, etc.) - must be outside the middleware group
-require __DIR__.'/auth.php';
-
 Route::middleware([
     'web',
     InitializeTenancyByDomain::class,
@@ -38,3 +35,6 @@ Route::middleware([
         return redirect()->route('login');
     });
 });
+
+// Auth routes (login, register, etc.) - must be outside the middleware group
+require __DIR__.'/auth.php';

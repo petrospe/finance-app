@@ -6,17 +6,15 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Central\TenantRegistrationController;
 
+Route::domain('localhost')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-// Route::get('/test', function () {
-//     return 'test route works';
-// });
+    Route::get('/register-company', [TenantRegistrationController::class, 'showForm']);
+    Route::post('/register-company', [TenantRegistrationController::class, 'register']);
 
-Route::get('/', function () {
-    return view('welcome');
 });
-
-Route::get('/register-company', [TenantRegistrationController::class, 'showForm']);
-Route::post('/register-company', [TenantRegistrationController::class, 'register']);
 
 // Route::get('/', function () {
 //     return inertia('Welcome', [
