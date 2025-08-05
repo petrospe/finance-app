@@ -1,5 +1,11 @@
+<script setup>
+  import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+</script>
+
 <template>
-  <div>
-    Incomes Page
-  </div>
+  <AuthenticatedLayout>
+    <div>
+      Incomes Page
+    </div>
+  </AuthenticatedLayout>
 </template>
