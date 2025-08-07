@@ -22,7 +22,7 @@
 
   function submit() {
     if (editing.value) {
-      form.put(route('expenses.update', form.id), {
+      form.post(route('expenses.update', form.id), {
         preserveScroll: true,
         onSuccess: () => {
           editing.value = false
