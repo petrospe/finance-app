@@ -44,13 +44,26 @@ Route::middleware([
             return inertia('Dashboard');
         })->name('dashboard');
 
-        Route::get('/expenses', function () {
-            return inertia('Expenses');
-        })->name('expenses');
+        Route::get('/dashboard/balance', [\App\Http\Controllers\DashboardController::class, 'balance']);
 
-        Route::get('/incomes', function () {
-            return inertia('Incomes');
-        })->name('incomes');
+        // Route::get('/expenses', function () {
+        //     return inertia('Expenses');
+        // })->name('expenses');
+
+        // Route::get('/incomes', function () {
+        //     return inertia('Incomes');
+        // })->name('incomes');
+
+        Route::get('/incomes', [\App\Http\Controllers\IncomeController::class, 'index'])->name('incomes');
+        Route::post('/incomes', [\App\Http\Controllers\IncomeController::class, 'store'])->name('incomes.store');
+        Route::post('/incomes/{income}', [\App\Http\Controllers\IncomeController::class, 'update'])->name('incomes.update');
+        Route::delete('/incomes/{income}', [\App\Http\Controllers\IncomeController::class, 'destroy'])->name('incomes.destroy');
+
+        Route::get('/expenses', [\App\Http\Controllers\ExpenseController::class, 'index'])->name('expenses');
+        Route::post('/expenses', [\App\Http\Controllers\ExpenseController::class, 'store'])->name('expenses.store');
+        Route::post('/expenses/{expense}', [\App\Http\Controllers\ExpenseController::class, 'update'])->name('expenses.update');
+        Route::delete('/expenses/{expense}', [\App\Http\Controllers\ExpenseController::class, 'destroy'])->name('expenses.destroy');
+
     });
 
     // Home route: redirect to login or dashboard
