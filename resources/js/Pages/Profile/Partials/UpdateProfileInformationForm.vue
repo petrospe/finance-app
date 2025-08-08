@@ -19,6 +19,7 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    language: user.language,
 });
 </script>
 
@@ -67,6 +68,17 @@ const form = useForm({
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <div class="mt-4">
+                <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+                <select v-model="form.language" id="language" class="mt-1 block w-full border-gray-300 rounded-md">
+                    <option value="en">English</option>
+                    <option value="el">Ελληνικά</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <!-- Add more -->
+                </select>
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">

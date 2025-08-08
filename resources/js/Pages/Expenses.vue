@@ -64,10 +64,10 @@
 
       <!-- Form -->
       <form @submit.prevent="submit" class="space-y-4 bg-white p-4 rounded shadow">
-        <input v-model="form.name" type="text" placeholder="Name" class="input w-full" />
+        <input v-model="form.name" type="text" placeholder="Name" class="input w-full" required />
         <input v-model="form.category" type="text" placeholder="Category" class="input w-full" />
-        <input v-model="form.amount" type="number" step="0.01" placeholder="Amount" class="input w-full" />
-        <input v-model="form.date" type="date" class="input w-full" />
+        <input v-model="form.amount" type="number" step="0.01" placeholder="Amount" class="input w-full" required />
+        <input v-model="form.date" type="date" class="input w-full" required />
         <input v-model="form.notes" type="text" placeholder="Notes" class="input w-full" />
         <button type="submit" class="btn btn-primary">
           {{ editing ? 'Update' : 'Create' }}

@@ -59,7 +59,7 @@
         <form @submit.prevent="submit" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium mb-1">Name</label>
-            <input v-model="form.name" type="text" class="input w-full" placeholder="e.g., Freelance Project" />
+            <input v-model="form.name" type="text" class="input w-full" placeholder="e.g., Freelance Project" required />
           </div>
 
           <div>
@@ -69,12 +69,12 @@
 
           <div>
             <label class="block text-sm font-medium mb-1">Amount</label>
-            <input v-model="form.amount" type="number" step="0.01" class="input w-full" placeholder="e.g., 100.00" />
+            <input v-model="form.amount" type="number" step="0.01" class="input w-full" placeholder="e.g., 100.00" required />
           </div>
 
           <div>
             <label class="block text-sm font-medium mb-1">Date</label>
-            <input v-model="form.date" type="date" class="input w-full" />
+            <input v-model="form.date" type="date" class="input w-full" required />
           </div>
 
           <div class="sm:col-span-2">
