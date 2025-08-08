@@ -1,0 +1,259 @@
+| Name         | Meaning / Vibe                                      |
+| ------------ | --------------------------------------------------- |
+| **Opero**    | From Latin *"to manage / perform"*, short and sleek |
+| **Costoria** | Fusion of *cost* and *astoria* (a place) – elegant  |
+| **Ledgerly** | Playful + professional take on “ledger”             |
+| **Profix**   | *Profit* + *Fix* (stability, control)               |
+| **Fluxence** | *Cash Flow* + *Intelligence*                        |
+| **Finpilot** | Finance + Pilot (you're flying your budget)         |
+| **Expentia** | Expense + Prudence or Intelligence                  |
+| **Zentari**  | Zen + Centauri (balance + exploration)              |
+| **Numora**   | Numbers + Aura (stylish, techy tone)                |
+| **Opnomic**  | *Operational Economics* compressed into one word    |
+
+
+| Name               | Why It Works                                        |
+| ------------------ | --------------------------------------------------- |
+| **core\_db**       | Simple and to the point – the core of the system    |
+| **system\_db**     | Emphasizes it's for internal system data            |
+| **tenancy\_db**    | Perfect if you're using multitenancy logic          |
+| **master\_db**     | Traditional, but commonly used in multi-db setups   |
+| **control\_panel** | Implies it's the admin/control system               |
+| **nucleus\_db**    | Stylish metaphor: the nucleus of all tenant data    |
+| **hub\_db**        | The central hub – clean and descriptive             |
+| **registry\_db**   | Fits if it mostly holds tenant metadata and configs |
+
+
+🔁 Multitenancy Requirements Recap
+✅ Each tenant (company/account) has its own DB
+✅ Each tenant is accessed via a subdomain (account1.localhost)
+✅ Authentication, finances, and data are isolated
+✅ Central admin/portal can create/manage accounts
+
+
+✅ Updated Goals
+Track all income & expense activity daily
+Calculate real-time operational cost for the day
+Compare today's expenses to income & budget
+Forecast financial health (e.g., end-of-month balance)
+Warn about overspending or low cashflow
+Display "safe to spend" amount
+
+🗂 1. Data Models
+incomes
+id | date | amount | category | description | source
+expenses
+id | date | amount | category | description | type (fixed/variable) | recurring | approved
+budgets (optional but useful)
+id | period (month/year) | expected_income | expected_expense
+daily_summaries (for caching or reports)
+id | date | total_income | total_expense | net_balance | operational_cost
+
+📊 2. Core Calculations
+✅ Today’s Operational Cost
+$todayExpenses = Expense::whereDate('date', today())->sum('amount');
+✅ Today’s Income
+$todayIncome = Income::whereDate('date', today())->sum('amount');
+✅ Net Balance
+$net = $todayIncome - $todayExpenses;
+✅ "Safe to Spend" (Optional)
+If you define a monthly budget, calculate daily allowance:
+$dailyBudget = ($monthlyBudget - sum(expensesToDate)) / remainingDays;
+
+📈 3. Dashboards & Warnings
+Metric	Description
+Today’s Cost	Total spent today
+Today’s Income	Money received today
+Net Balance	Income – Expenses
+Remaining Budget	Monthly budget – Spent so far
+Safe to Spend Today	Based on pacing the budget evenly
+Warning Alerts	If today’s expense > income or limit
+
+🔁 4. Recurring Costs Handling
+Support monthly/daily recurring expenses (e.g., rent, salaries, subscriptions). These should 
+Added automatically per 
+Flagged as fixed vs varia
+Used in future forecast
+
+💼 5. For Management Use
+Give managers tools to:
+Approve expenses
+Set spending limits
+Forecast cashflow
+Simulate "what if" scenarios
+
+Example Dashboard Widgets
+------------------------------
+| Today: JULY 11, 2025       |
+------------------------------
+| Income:      € 2,300.00    |
+| Expenses:    € 1,850.00    |
+| Net:         €   450.00 ✅ |
+| Safe to Spend: € 200.00    |
+| Warning: Overspend risk ❌ |
+------------------------------
+| Expense breakdown:
+| - Salaries: € 1,200
+| - Fuel:     € 350
+| - Rent:     € 300
+---------------------------
+
+
+do you know some if some of these have connectivity with greek tax authority to take data or send data?
+
+Yes — in Greece, the **Independent Authority for Public Revenue (AADE)** has introduced the **myDATA** (My Digital Accounting and Tax Application) platform, which is **mandatory for businesses to digitally transmit their income and expense data**. Some software tools — including foreign or Greek ones — offer integration with **AADE myDATA**.
+
+Here’s what you need to know:
+
+---
+
+## ✅ Web Applications with AADE (myDATA) Integration
+
+### 🇬🇷 1. **Epsilon Net / Epsilon Smart**
+
+* **Type:** Greek accounting & ERP solution
+* **myDATA Integration:** ✅ Yes (certified)
+* **Features:**
+
+  * Direct transmission to AADE
+  * Invoicing and bookkeeping
+  * Expense & income management
+* **URL:** [www.epsilonsmart.gr](https://www.epsilonsmart.gr)
+
+---
+
+### 🇬🇷 2. **SoftOne**
+
+* **Type:** Cloud ERP / CRM platform
+* **myDATA Integration:** ✅ Yes
+* **Features:**
+
+  * Certified myDATA transmission
+  * Daily expense/income tracking
+  * Used by large and small businesses
+* **URL:** [www.softone.gr](https://www.softone.gr)
+
+---
+
+### 🇬🇷 3. **Prosvasis Go**
+
+* **Type:** Online accounting platform
+* **myDATA Integration:** ✅ Yes
+* **Features:**
+
+  * Created by SoftOne
+  * Simplified UI for freelancers/small businesses
+  * Direct upload to myDATA
+* **URL:** [www.prosvasisgo.gr](https://www.prosvasisgo.gr)
+
+---
+
+### 🇬🇷 4. **Elorus**
+
+* **Type:** Invoicing & expense tracking SaaS
+* **myDATA Integration:** ✅ Yes
+* **Features:**
+
+  * Online invoicing and expenses
+  * Automatic myDATA reporting
+  * Dashboard with tax compliance
+* **URL:** [www.elorus.com](https://www.elorus.com)
+
+---
+
+### 🇬🇷 5. **AFI Invoicing (Παραστατικά.gr)**
+
+* **Type:** Cloud invoicing platform
+* **myDATA Integration:** ✅ Yes
+* **Audience:** Sole traders, freelancers, small businesses
+* **URL:** [www.parastatika.gr](https://www.parastatika.gr)
+
+---
+
+## 🛠️ What If You’re Building Your Own?
+
+If you want your **Laravel + Vue** application to send data to **myDATA**, here’s what to consider:
+
+### 1. **AADE myDATA REST API**
+
+* Documentation: [https://www.aade.gr/mydata](https://www.aade.gr/mydata)
+* You'll need:
+
+  * ✅ **Production or test API credentials**
+  * ✅ Your **mark** (for income) and **uid** (for expenses)
+  * ✅ XML or JSON payload formats
+  * ✅ Authentication via client cert / OAuth2
+
+### 2. **Register as Certified Software (if necessary)**
+
+* Only certified platforms can directly push invoices (though workarounds exist via third parties)
+
+### 3. **Use an Integration Partner**
+
+* You could build via an **intermediary API service** like:
+
+  * **Sleed myDATA Connector**
+  * **AADE API Gateway from accounting platforms**
+
+---
+
+Would you like a working **Laravel service class example** that pushes income/expense to AADE’s myDATA sandbox (demo) API?
+
+All the former web application provide day costs etc or are erp programs?
+
+Great question — here's a breakdown:
+
+Most of the **web applications mentioned earlier** (like QuickBooks, Xero, Epsilon Net, SoftOne, etc.) are **not strictly daily cost trackers**. Instead, they fall into one of two categories:
+
+---
+
+## 🧩 1. **ERP & Accounting Platforms (Broader Scope)**
+
+These are **ERP-like or full accounting systems**, which include expenses/incomes as **part of a bigger feature set** (invoicing, inventory, payroll, etc.).
+
+| Application             | Type                 | Daily Operational Cost Breakdown? | Comments                                                                   |
+| ----------------------- | -------------------- | --------------------------------- | -------------------------------------------------------------------------- |
+| **Epsilon Smart**       | ERP/accounting       | ❌ Limited                         | Focuses on invoicing, tax compliance (myDATA), not real-time cost analysis |
+| **SoftOne / Prosvasis** | ERP                  | ❌ Not directly                    | You get reports, but not daily cash flow targeting decision-making         |
+| **Elorus**              | Invoicing/accounting | ❌ Basic                           | Daily numbers via dashboards, but more focused on invoices/profits         |
+| **QuickBooks**          | Accounting           | ✅ Limited Cash Flow Tracking      | Shows cash balances & trends but not per-day "safe-to-spend"               |
+| **Xero**                | Cloud Accounting     | ✅ Cash Flow Forecasting           | Better graphs, but business-focused, not cost-centered                     |
+| **Wave**                | Free Accounting      | ❌ Basic                           | No focus on day-specific operational cost control                          |
+
+---
+
+## 🎯 2. **Expense Trackers / Reporting Tools**
+
+These focus on **logging costs and receipts**, not always accounting-grade.
+
+| Application    | Type               | Daily Operational Cost Tracking? | Comments                                                  |
+| -------------- | ------------------ | -------------------------------- | --------------------------------------------------------- |
+| **Expensify**  | Expense reports    | ❌ No day-by-day breakdown        | Focus is per-employee, receipt management                 |
+| **Fyle**       | Expense automation | ❌ Workflow-focused               | Helps control expense policies, not real-time cost status |
+| **Manager.io** | Lightweight ERP    | ❌ Not built for daily review     | Good ledger-level visibility, manual setup needed         |
+
+---
+
+## ✅ Summary
+
+* ❌ **Most systems don’t show daily operational cost (e.g., “How much money can I safely spend today?”).**
+* ✅ That **gap** is your **main opportunity** — your app **can provide real-time, day-by-day financial clarity**, not just accounting.
+
+---
+
+## 🧠 Your App Could Offer:
+
+* **Today’s starting cash**
+* **Today’s expected income**
+* **Today’s fixed expenses (salaries, rents)**
+* **Discretionary expenses allowed (safe-to-spend amount)**
+* **Red/yellow/green cost indicators**
+* **Suggestions: delay this expense, too many payments today, etc.**
+
+---
+
+If you'd like, I can mock up an example of how this could look in a Vue dashboard — or suggest a data model to support it.
+
+
+10. 🧮 (Optional) Add AADE myDATA Integration Later
+Use Guzzle to POST expense/income data to https://mydata-dev.aade.gr, once accounts are active.
