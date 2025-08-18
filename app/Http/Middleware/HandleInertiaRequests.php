@@ -29,11 +29,19 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // Set app locale to logged-in user language
+        $locale = $request->user()?->language ?? app()->getLocale();
+        app()->setLocale($locale);
+
+        // Now sync only for this locale
+        syncLangFiles(['menu', 'messages']);
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
+            'locale' => $locale,
         ];
     }
 }

@@ -7,6 +7,9 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
+import { useLang } from '@/composables/useLang'
+const { trans, __ } = useLang()
+
 const showingNavigationDropdown = ref(false);
 </script>
 
@@ -37,13 +40,13 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
-                                    Dashboard
+                                    {{ __('menu.dashboard') }}
                                 </NavLink>
                                 <NavLink :href="route('expenses')" :active="route().current('expenses')">
-                                    Expenses
+                                    {{ __('menu.expenses') }}
                                 </NavLink>
                                 <NavLink :href="route('incomes')" :active="route().current('incomes')">
-                                    Incomes
+                                    {{ __('menu.incomes') }}
                                 </NavLink>
                             </div>
                         </div>
@@ -150,19 +153,19 @@ const showingNavigationDropdown = ref(false);
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
-                            Dashboard
+                            {{ __('menu.dashboard') }}
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('expenses')"
                             :active="route().current('expenses')"
                         >
-                            Expenses
+                            {{ __('menu.expenses') }}
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('incomes')"
                             :active="route().current('incomes')"
                         >
-                            Income
+                            {{ __('menu.incomes') }}
                         </ResponsiveNavLink>
                     </div>
 
