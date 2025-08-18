@@ -31,6 +31,12 @@ class HandleInertiaRequests extends Middleware
     {
         // Set app locale to logged-in user language
         $locale = $request->user()?->language ?? app()->getLocale();
+
+        // If locale folder doesn't exist, force fallback to English
+        if (!is_dir(lang_path("$locale"))) {
+            $locale = config('app.fallback_locale');
+        }
+
         app()->setLocale($locale);
 
         // Now sync only for this locale
