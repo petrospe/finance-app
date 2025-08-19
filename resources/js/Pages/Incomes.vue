@@ -5,8 +5,13 @@
   import { useForm } from '@inertiajs/vue3'
   import { router } from '@inertiajs/vue3'
   import { defineProps } from 'vue'
+  import Multiselect from 'vue-multiselect'
+  import 'vue-multiselect/dist/vue-multiselect.min.css'
 
-  const props = defineProps({ incomes: Array })
+  const props = defineProps({ 
+    incomes: Array,
+    incomeCategories: Array,
+  })
 
   const form = useForm({
     id: null,
@@ -45,6 +50,15 @@
       router.delete(route('incomes.destroy', id))
     }
   }
+
+  function addCategory(newCategory) {
+    if (!newCategory) return
+    // Push so it appears in dropdown as well
+    if (!props.incomeCategories.includes(newCategory)) {
+      props.incomeCategories.push(newCategory)
+    }
+    form.category = newCategory
+  }
 </script>
 
 <template>
@@ -64,7 +78,15 @@
 
           <div>
             <label class="block text-sm font-medium mb-1">Category</label>
-            <input v-model="form.category" type="text" class="input w-full" placeholder="e.g., Consulting" />
+            <multiselect
+              v-model="form.category"
+              :options="incomeCategories"
+              :multiple="false"
+              :taggable="true"
+              placeholder="Select or type category e.g., Consulting"
+              @tag="addCategory"
+              class="w-full"
+            />
           </div>
 
           <div>

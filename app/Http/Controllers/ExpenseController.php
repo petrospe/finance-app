@@ -13,10 +13,13 @@ class ExpenseController extends Controller
      */
     public function index()
     {
+        $expenseCategories = Expense::select('category')->distinct()->pluck('category');
+
         // $expences = Expense::latest()->get();
         // return Inertia::render('Expenses/Index', ['expences' => $expences]);
         return Inertia::render('Expenses', [
             'expenses' => Expense::all(),
+            'expenseCategories' => $expenseCategories,
         ]);
     }
 

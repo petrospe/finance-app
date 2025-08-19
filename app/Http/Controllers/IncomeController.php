@@ -13,8 +13,11 @@ class IncomeController extends Controller
      */
     public function index()
     {
+        $incomeCategories  = Income::select('category')->distinct()->pluck('category');
+
         return Inertia::render('Incomes', [
             'incomes' => Income::all(),
+            'incomeCategories' => $incomeCategories,
         ]);
     }
 
