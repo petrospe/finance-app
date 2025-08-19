@@ -62,7 +62,10 @@ const formatAmount = (amount) => {
                     >
                     <option value="day">Day</option>
                     <option value="week">Week</option>
+                    <option value="two_weeks">Two Weeks</option>
                     <option value="month">Month</option>
+                    <option value="six_months">Six Months</option>
+                    <option value="year">Year</option>
                     </select>
                 </div>
 
