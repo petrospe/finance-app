@@ -85,6 +85,14 @@ const showingNavigationDropdown = ref(false);
                                         >
                                             Profile
                                         </DropdownLink>
+
+                                        <DropdownLink
+                                            v-if="$page.props.auth.tenant && $page.props.auth.tenant.stripe_subscription_id"
+                                            :href="route('subscription.manage')"
+                                        >
+                                            Manage Subscription
+                                        </DropdownLink>
+
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"

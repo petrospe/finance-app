@@ -5,7 +5,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Central\TenantRegistrationController;
+use App\Http\Controllers\Central\StripeWebhookController;
 
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 Route::domain('localhost')->group(function () {
     Route::get('/', function () {
         return view('welcome');

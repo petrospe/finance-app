@@ -69,6 +69,7 @@ Route::middleware([
         Route::post('/expenses/{expense}', [\App\Http\Controllers\ExpenseController::class, 'update'])->name('expenses.update');
         Route::delete('/expenses/{expense}', [\App\Http\Controllers\ExpenseController::class, 'destroy'])->name('expenses.destroy');
 
+        Route::get('/subscription/manage', [\App\Http\Controllers\SubscriptionController::class, 'managePortal'])->name('subscription.manage');
     });
 
     // Home route: redirect to login or dashboard
