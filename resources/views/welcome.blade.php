@@ -72,7 +72,7 @@
                 </ul>
                 -->
                 <div class="auth-buttons flex space-x-4">
-                    <a href="#" class="hidden md:inline-block px-4 py-2 bg-transparent border-2 border-accent text-accent font-semibold rounded-md hover:bg-accent hover:text-white transition-all">Pricing</a>
+                    <a href="#" class="hidden md:inline-block px-4 py-2 bg-transparent border-2 border-accent text-accent font-semibold rounded-md hover:bg-accent hover:text-white transition-all" onclick="openPricingModal(); return false;">Pricing</a>
                     <a href="/register-company" class="px-4 py-2 bg-accent text-white font-semibold rounded-md hover:bg-[#008A79] transition-all btn">Get Started</a>
                 </div>
             </nav>
@@ -285,6 +285,106 @@
         </div>
     </div>
 
+    <!-- Pricing Modal -->
+    <div id="pricingModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity p-4">
+        <div class="modal-content bg-white rounded-lg shadow-xl max-w-5xl w-full max-h-screen overflow-auto transform scale-95 transition-transform">
+            
+            <!-- Header -->
+            <div class="flex justify-between items-center p-6 border-b">
+            <h3 class="text-2xl font-bold text-primary">Subscription Plans</h3>
+            <button onclick="closePricingModal()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-6">
+            
+            <!-- Billing Toggle -->
+            <div class="flex justify-center items-center mb-8">
+                <span class="mr-3 text-gray-600">Monthly</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="billingToggle" class="sr-only peer" onchange="toggleBilling()" />
+                <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:bg-accent transition"></div>
+                <div class="absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition peer-checked:translate-x-7"></div>
+                </label>
+                <span class="ml-3 text-gray-600">Yearly <span class="text-green-600 font-semibold">-10%</span></span>
+            </div>
+
+            <!-- Plans -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Basic Plan -->
+                <div id="basicPlan" class="pricing-card bg-white rounded-xl shadow-custom p-8 border-2 border-transparent transition">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                    <h4 class="text-xl font-bold text-primary">Basic Plan</h4>
+                    <p class="text-textLight">For individuals & small teams</p>
+                    </div>
+                    <span class="bg-accent text-white text-sm font-semibold px-3 py-1 rounded-full">Starter</span>
+                </div>
+                <div class="mb-6">
+                    <span id="basicPrice" class="text-4xl font-bold text-primary">$5</span>
+                    <span class="text-textLight">/month</span>
+                    <p id="basicDiscount" class="text-sm text-green-600 mt-1 hidden">Save 10% with yearly billing</p>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Unlimited users</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Income/expense tracking</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Basic operational cost analytics</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Monthly financial reports</li>
+                    <li class="flex items-center text-gray-400"><i class="fas fa-times-circle mr-3"></i>No support included</li>
+                </ul>
+                <button onclick="selectPlan('basicPlan')" class="w-full bg-accent text-white font-semibold py-3 rounded-md hover:bg-[#008A79] transition-colors">
+                    Choose Basic
+                </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div id="proPlan" class="pricing-card bg-white rounded-xl shadow-custom p-8 border-2 border-transparent transition">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                    <h4 class="text-xl font-bold text-primary">Pro Plan</h4>
+                    <p class="text-textLight">For growing businesses</p>
+                    </div>
+                    <span class="bg-accent text-white text-sm font-semibold px-3 py-1 rounded-full">Most Popular</span>
+                </div>
+                <div class="mb-6">
+                    <span id="proPrice" class="text-4xl font-bold text-primary">$150</span>
+                    <span class="text-textLight">/month</span>
+                    <p id="proDiscount" class="text-sm text-green-600 mt-1 hidden">Save 10% with yearly billing</p>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Unlimited users</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Advanced cost analytics</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Comprehensive financial reports</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Email & chat support</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i>Priority onboarding</li>
+                </ul>
+                <button onclick="selectPlan('proPlan')" class="w-full bg-accent text-white font-semibold py-3 rounded-md hover:bg-[#008A79] transition-colors">
+                    Choose Pro
+                </button>
+                </div>
+
+            </div>
+
+            <!-- Custom Plan -->
+            <div class="mt-8 text-center">
+                <p class="text-textLight">Need a custom plan? <a href="#" class="text-accent hover:underline">Contact our sales team</a></p>
+            </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="p-6 border-t flex justify-end">
+            <button onclick="closePricingModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors mr-3">Close</button>
+            <button id="confirmPlanBtn" class="px-4 py-2 bg-accent text-white rounded-md hover:bg-[#008A79] transition-colors" disabled>
+                Select a Plan
+            </button>
+            </div>
+
+        </div>
+    </div>
+
     <script>
         // Modal functionality
         function openModal(screenId) {
@@ -355,6 +455,116 @@
             if (e.key === 'Escape') {
                 closeModal();
             }
+        });
+
+        // Pricing Modal functionality
+        function openPricingModal() {
+            const modal = document.getElementById('pricingModal');
+            
+            // Show modal
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            
+            // Scale animation
+            setTimeout(() => {
+                document.querySelector('#pricingModal .modal-content').classList.remove('scale-95');
+                document.querySelector('#pricingModal .modal-content').classList.add('scale-100');
+            }, 10);
+            
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePricingModal() {
+            const modal = document.getElementById('pricingModal');
+            
+            // Hide modal with animation
+            document.querySelector('#pricingModal .modal-content').classList.remove('scale-100');
+            document.querySelector('#pricingModal .modal-content').classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 200);
+            
+            // Re-enable body scrolling
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside the content
+        document.getElementById('pricingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePricingModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (!document.getElementById('imageModal').classList.contains('opacity-0')) {
+                    closeModal();
+                }
+                if (!document.getElementById('pricingModal').classList.contains('opacity-0')) {
+                    closePricingModal();
+                }
+            }
+        });
+
+        let selectedPlan = null;
+
+        function toggleBilling() {
+            const yearly = document.getElementById("billingToggle").checked;
+
+            // Basic Plan
+            const basicPrice = document.getElementById("basicPrice");
+            const basicDiscount = document.getElementById("basicDiscount");
+            if (yearly) {
+            basicPrice.textContent = "$54"; // 5 * 12 = 60, -10% = 54
+            basicDiscount.classList.remove("hidden");
+            } else {
+            basicPrice.textContent = "$5";
+            basicDiscount.classList.add("hidden");
+            }
+
+            // Pro Plan
+            const proPrice = document.getElementById("proPrice");
+            const proDiscount = document.getElementById("proDiscount");
+            if (yearly) {
+            proPrice.textContent = "$1620"; // 150 * 12 = 1800, -10% = 1620
+            proDiscount.classList.remove("hidden");
+            } else {
+            proPrice.textContent = "$150";
+            proDiscount.classList.add("hidden");
+            }
+        }
+
+        function selectPlan(planId) {
+            // Clear previous selection
+            document.getElementById("basicPlan").classList.remove("border-accent", "bg-accent/5");
+            document.getElementById("proPlan").classList.remove("border-accent", "bg-accent/5");
+
+            // Highlight selected
+            const plan = document.getElementById(planId);
+            plan.classList.add("border-accent", "bg-accent/5");
+
+            // Save selection
+            selectedPlan = planId;
+
+            // Enable confirm button
+            const confirmBtn = document.getElementById("confirmPlanBtn");
+            confirmBtn.textContent = "Confirm " + (planId === "basicPlan" ? "Basic Plan" : "Pro Plan");
+            confirmBtn.disabled = false;
+        }
+        
+        // Redirect when confirming
+        document.getElementById("confirmPlanBtn").addEventListener("click", function() {
+            if (!selectedPlan) return;
+
+            const yearly = document.getElementById("billingToggle").checked ? "yearly" : "monthly";
+            const plan = selectedPlan === "basicPlan" ? "basic" : "pro";
+
+            // Redirect with query params so backend knows
+            window.location.href = `/register-company?plan=${plan}&billing=${yearly}`;
         });
     </script>
 </body>
