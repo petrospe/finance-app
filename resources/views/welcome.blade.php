@@ -196,13 +196,13 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Replace with your actual app screenshots -->
-                <div class="flex justify-center">
+                <div class="flex justify-center" onclick="openModal('app-screen-1')">
                     <img src="{{ asset('images/app-screen-1.png') }}" alt="Expense Tracking" class="rounded-lg shadow-custom max-w-full h-auto">
                 </div>
-                <div class="flex justify-center">
+                <div class="flex justify-center" onclick="openModal('app-screen-2')">
                     <img src="{{ asset('images/app-screen-2.png') }}" alt="Analytics Dashboard" class="rounded-lg shadow-custom max-w-full h-auto">
                 </div>
-                <div class="flex justify-center">
+                <div class="flex justify-center"  onclick="openModal('app-screen-3')">
                     <img src="{{ asset('images/app-screen-3.png') }}" alt="Reports" class="rounded-lg shadow-custom max-w-full h-auto">
                 </div>
             </div>
@@ -266,5 +266,96 @@
             </div>
         </div>
     </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity">
+        <div class="modal-content bg-white rounded-lg shadow-xl max-w-4xl w-11/12 max-h-screen overflow-auto transform scale-95 transition-transform">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 id="modalTitle" class="text-lg font-semibold text-primary">App Screenshot</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <img id="modalImage" src="" alt="App Screenshot" class="w-full h-auto rounded">
+            </div>
+            <div class="p-4 border-t flex justify-end">
+                <button onclick="closeModal()" class="px-4 py-2 bg-accent text-white rounded-md hover:bg-[#008A79] transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(screenId) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            // Set image based on screen ID
+            let imageUrl, title;
+            switch(screenId) {
+                case 'app-screen-1':
+                    imageUrl = '{{ asset('images/app-screen-1.png') }}';
+                    title = 'Expense Tracking';
+                    break;
+                case 'app-screen-2':
+                    imageUrl = '{{ asset('images/app-screen-2.png') }}';
+                    title = 'Analytics Dashboard';
+                    break;
+                case 'app-screen-3':
+                    imageUrl = '{{ asset('images/app-screen-3.png') }}';
+                    title = 'Incomes';
+                    break;
+            }
+            
+            modalImage.src = imageUrl;
+            modalImage.alt = title;
+            modalTitle.textContent = title;
+            
+            // Show modal
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            
+            // Scale animation
+            setTimeout(() => {
+                document.querySelector('.modal-content').classList.remove('scale-95');
+                document.querySelector('.modal-content').classList.add('scale-100');
+            }, 10);
+            
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            
+            // Hide modal with animation
+            document.querySelector('.modal-content').classList.remove('scale-100');
+            document.querySelector('.modal-content').classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 200);
+            
+            // Re-enable body scrolling
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside the content
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
