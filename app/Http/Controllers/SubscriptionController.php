@@ -13,7 +13,7 @@ class SubscriptionController extends Controller
         $user = $request->user();
 
         // Make sure tenant exists and has Stripe customer ID
-        $tenant = $user->tenant;
+        $tenant = tenant();
         if (!$tenant || !$tenant->stripe_customer_id) {
             return redirect()->back()->with('error', 'No Stripe customer found.');
         }
