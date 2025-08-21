@@ -43,6 +43,20 @@
                 </ul>
             </div>
         @endif
+        <!-- Go to Home button -->
+        <div class="mt-6 text-center">
+            <a href="/" 
+            class="inline-flex items-center justify-center w-12 h-12 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition"
+            title="Go to Home">
+                <!-- Heroicon: Home -->
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    fill="none" viewBox="0 0 24 24" 
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M3 9.75L12 3l9 6.75M4.5 10.5V21h6v-6h3v6h6V10.5"/>
+                </svg>
+            </a>
+        </div>
     </div>
 </body>
 </html>
