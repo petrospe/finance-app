@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Privacy Policy | [Your Company Name]</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('images/logo-icon.png') }}">
   <meta name="description" content="Privacy Policy for [Your Company Name]. GDPR-compliant information on how we collect, use, and protect your personal data."/>
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <style>
@@ -23,9 +24,70 @@
       .card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
       .muted { color: #9ca3af; }
     }
+    /* Navbar wrapper: full width + shadow + white background */
+    .navbar {
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Center container */
+    .navbar-container {
+      max-width: 1200px; /* like max-w-6xl */
+      margin: 0 auto;
+      padding: 20px 24px; /* py-5 px-6 */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Force logo link to have no underline */
+    .navbar-logo,
+    .navbar-logo:link,
+    .navbar-logo:visited,
+    .navbar-logo:hover,
+    .navbar-logo:active {
+      text-decoration: none !important;
+    }
+
+    /* Logo wrapper */
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Logo image */
+    .navbar-logo-img {
+      height: 40px; /* like h-10 */
+      width: auto;
+      margin-right: 8px;
+    }
+
+    /* Logo text */
+    .navbar-logo-text {
+      font-size: 1.5rem; /* like text-2xl */
+      font-weight: bold;
+      color: #1a202c; /* dark gray / primary */
+      transition: color 0.3s;
+    }
+
+    /* Hover effect */
+    .navbar-logo:hover .navbar-logo-text {
+      color: #f97316; /* example accent orange */
+    }
   </style>
 </head>
 <body>
+  <!-- Full-width background -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <!-- Logo -->
+      <a href="{{ url('/') }}" class="navbar-logo">
+        <img src="{{ asset('images/logo.png') }}" alt="Opnomic Logo" class="navbar-logo-img">
+        <span class="navbar-logo-text">Opnomic</span>
+      </a>
+    </div>
+  </nav>
   <main class="wrap">
     <header>
       <h1>Privacy Policy (GDPR-Compliant)</h1>

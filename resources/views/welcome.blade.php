@@ -255,9 +255,11 @@
                     <h3 class="text-accent text-lg font-semibold mb-5">Company</h3>
                     <ul class="space-y-2">
                         <li><a href="#" class="text-gray-300 hover:text-accent transition-colors">About Us</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors">Careers</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors">Contact</a></li>
                         <li><a href="/privacy-policy" class="text-gray-300 hover:text-accent transition-colors">Privacy Policy</a></li>
+                        <li><a href="/cookie-policy" class="text-gray-300 hover:text-accent transition-colors">Cookie Policy</a></li>
+                        <li><a href="/terms-conditions" class="text-gray-300 hover:text-accent transition-colors">Terms & Conditions</a></li>
+                        <li><a href="/refund-cancellation-policy" class="text-gray-300 hover:text-accent transition-colors">Refund & Cancellation Policy</a></li>
+                        <li><a href="/impressum-legal-notice" class="text-gray-300 hover:text-accent transition-colors">Impressum / Legal Notice</a></li>
                     </ul>
                 </div>
             </div>

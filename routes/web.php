@@ -15,6 +15,18 @@ Route::domain('localhost')->group(function () {
     Route::get('/privacy-policy', function () {
         return view('privacy_policy');
     });
+    Route::get('/cookie-policy', function () {
+        return view('cookie_policy');
+    });
+    Route::get('/terms-conditions', function () {
+        return view('terms_conditions');
+    });
+    Route::get('/refund-cancellation-policy', function () {
+        return view('refund_cancellation_policy');
+    });
+    Route::get('/impressum-legal-notice', function () {
+        return view('impressum_legal_notice');
+    });
 
     Route::get('/register-company', [TenantRegistrationController::class, 'showForm']);
     Route::post('/register-company', [TenantRegistrationController::class, 'register']);
