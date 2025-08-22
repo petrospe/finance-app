@@ -74,7 +74,11 @@ class TenantRegistrationController extends Controller
         }
 
         // === 4. Redirect to tenant's subdomain ===
-        $tenantUrl = "http://{$request->company}.localhost:8000"; // adapt for prod
+        $protocol = "https";
+        if (str_contains(env("CENTRAL_DOMAIN"), 'localhost')) {
+            $protocol = "http";
+        }
+        $tenantUrl = $protocol."://{$request->company}.".env("CENTRAL_DOMAIN"); // adapt for prod
         return redirect($tenantUrl)->with('success', 'Company registered! Your subscription has started with a 10-day trial.');
     }
 }

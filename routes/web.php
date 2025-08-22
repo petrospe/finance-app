@@ -12,6 +12,9 @@ Route::domain('localhost')->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('/privacy-policy', function () {
+        return view('privacy_policy');
+    });
 
     Route::get('/register-company', [TenantRegistrationController::class, 'showForm']);
     Route::post('/register-company', [TenantRegistrationController::class, 'register']);

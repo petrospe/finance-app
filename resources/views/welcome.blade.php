@@ -257,7 +257,7 @@
                         <li><a href="#" class="text-gray-300 hover:text-accent transition-colors">About Us</a></li>
                         <li><a href="#" class="text-gray-300 hover:text-accent transition-colors">Careers</a></li>
                         <li><a href="#" class="text-gray-300 hover:text-accent transition-colors">Contact</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-accent transition-colors">Privacy Policy</a></li>
+                        <li><a href="/privacy-policy" class="text-gray-300 hover:text-accent transition-colors">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
